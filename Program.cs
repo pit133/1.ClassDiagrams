@@ -46,6 +46,29 @@ namespace DZ1
         
     }
 
+    class SMSLowBalanceNotifyer
+    {
+        string _phone;
+        decimal _lowBalanceValue;
+
+        SMSLowBalanceNotifyer(string phone, decimal lowBalanceValue)
+        {
+            _phone = phone;
+            _lowBalanceValue = lowBalanceValue;
+        }
+
+        void Notify(decimal balance)
+        {
+            string callingClassName = GetType().Name;
+            Console.WriteLine($"Метод вызван из класса: {callingClassName}");
+
+            if (balance < _lowBalanceValue)
+            {
+                Console.WriteLine(balance);
+            }
+        }
+    }
+
 
     internal class Program
     {
