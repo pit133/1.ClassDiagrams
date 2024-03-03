@@ -38,7 +38,7 @@ namespace DZ1
             }
         }
 
-        private void ChangeBalance(decimal newBalance)
+        public void ChangeBalance(decimal newBalance)
         {
             _balance = newBalance;
             Notificatoin();
@@ -91,7 +91,15 @@ namespace DZ1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            
+            Account account = new Account(1000);            
+            SMSLowBalanceNotifyer smsNotifier = new SMSLowBalanceNotifyer("123456789", 500);
+            EMailBalanceChangedNotifyer emailNotifier = new EMailBalanceChangedNotifyer("example@example.com");
+
+            account.AddNotifier(smsNotifier);
+            account.AddNotifier(emailNotifier);
+            account.ChangeBalance(800);
+            account.ChangeBalance(400);
         }
     }
 }
