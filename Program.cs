@@ -46,31 +46,48 @@ namespace DZ1
         
     }
 
-    class SMSLowBalanceNotifyer
+    class SMSLowBalanceNotifyer : INotifier
     {
         string _phone;
         decimal _lowBalanceValue;
 
-        SMSLowBalanceNotifyer(string phone, decimal lowBalanceValue)
+        public SMSLowBalanceNotifyer(string phone, decimal lowBalanceValue)
         {
             _phone = phone;
             _lowBalanceValue = lowBalanceValue;
         }
 
-        void Notify(decimal balance)
+        public void Notify(decimal balance)
         {
             string callingClassName = GetType().Name;
             Console.WriteLine($"Метод вызван из класса: {callingClassName}");
 
             if (balance < _lowBalanceValue)
             {
-                Console.WriteLine(balance);
+                Console.WriteLine("Баданс: " + balance);
             }
         }
     }
 
+    class EMailBalanceChangedNotifyer : INotifier
+    {
+        string _email;
 
-    internal class Program
+        public EMailBalanceChangedNotifyer(string email)
+        {
+            _email = email;
+        }
+
+        public void Notify(decimal balance) 
+        {
+            string callingClassName = GetType().Name;
+            Console.WriteLine($"Метод вызван из класса: {callingClassName}");
+            Console.WriteLine("Баданс: " + balance);
+        }
+    }
+
+
+    public class Program
     {
         static void Main(string[] args)
         {
